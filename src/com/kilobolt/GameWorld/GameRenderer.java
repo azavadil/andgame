@@ -128,8 +128,20 @@ public class GameRenderer {
 		// draw cat at its coordinates. Retrieve the Animation object
 		// from Asset loader
 		// pass in the runTime variable to get the current frame
-		mBatcher.draw(mCatAnimation.getKeyFrame(runTime), mCat.getX(),mCat.getY(), 
-				mCat.getWidth(),mCat.getHeight()); 
+		if(mCat.shouldntFlap()){ 
+			mBatcher.draw(mCatMid, mCat.getX(), mCat.getY(), 
+					mCat.getWidth() / 2.0f, 
+					mCat.getHeight() / 2.0f, 
+					mCat.getWidth(), mCat.getHeight(), 1,1, mCat.getRotation()); 
+		} else { 
+			mBatcher.draw(mCatAnimation.getKeyFrame(runTime),
+					mCat.getX(), mCat.getY(), 
+					mCat.getWidth() / 2.0f, 
+					mCat.getHeight() / 2.0f, 
+					mCat.getWidth(), 
+					mCat.getHeight(), 
+					1,1,mCat.getRotation()); 
+		}
 		
 		// end sprite
 		mBatcher.end(); 
