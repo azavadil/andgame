@@ -39,7 +39,7 @@ public class GameRenderer {
 		// @param3:  height
 
 
-		mCam.setToOrtho(true, 136, gameHeight); 
+		mCam.setToOrtho(true, 136, mGameHeight); 
 		// attach mBatcher to camera
 		mBatcher = new SpriteBatch(); 
 		mBatcher.setProjectionMatrix(mCam.combined);

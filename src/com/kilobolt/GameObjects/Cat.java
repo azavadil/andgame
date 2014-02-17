@@ -30,6 +30,31 @@ public class Cat {
 		
 		mPosition.add(mVelocity.cpy().scl(delta)); 
 		
+		
+		// rotate counterclockwise
+		if(mVelocity.y < 0){ 
+			mRotation -= 600 * delta; 
+			if(mRotation < -20){ 
+				mRotation = -20; 
+			}
+		}
+		
+		// rotate clockwise
+		if(isFalling()){ 
+			mRotation += 480 * delta; 
+			if (mRotation > 90){ 
+				mRotation = 90; 
+			}
+		}
+	
+	}
+	
+	public boolean isFalling(){ 
+		return mVelocity.y > 110; 
+	}
+	
+	public boolean shouldntFlap(){ 
+		return mVelocity.y > 70;
 	}
 	
 	public void onClick() { 
