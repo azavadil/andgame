@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10; 
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer; 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType; 
 
@@ -22,6 +24,13 @@ public class GameRenderer {
 	
 	private int mMidPointY; 
 	private int mGameHeight; 
+	
+	private Cat mCat; 
+	private TextureRegion mBg, mGrass; 
+	private Animation mCatAnimation; 
+	private TextureRegion mCatMid, mCatDown, mCatUp;
+	private TextureRegion mSkullUp, mSkullDown, mBar; 
+	
 	
 	public GameRenderer(GameWorld world, int gameHeight, int midPointY){ 
 		
@@ -48,7 +57,27 @@ public class GameRenderer {
 		mShapeRenderer = new ShapeRenderer(); 
 		// attach the shape renderer to the camera
 		mShapeRenderer.setProjectionMatrix(mCam.combined); 
+		
+		// call helper methods to initialize instance variables
+		initGameObjects(); 
+		initAssets(); 
 
+	}
+	
+	private void initGameObjects(){ 
+		mCat = mMyWorld.getCat(); 
+	}
+	
+	private void initAssets(){ 
+		mBg = AssetLoader.mBg; 
+		mGrass = AssetLoader.mGrass; 
+		mCatAnimation = AssetLoader.mCatAnimation; 
+		mCatMid	 = AssetLoader.mCat; 
+		mCatDown = AssetLoader.mCatDown; 
+		mCatUp = AssetLoader.mCatUp; 
+		mSkullUp = AssetLoader.mSkullUp; 
+		mSkullDown = AssetLoader.mSkullDown; 
+		mBar = AssetLoader.mBar; 
 	}
 	
 	// 
@@ -59,7 +88,6 @@ public class GameRenderer {
 		
 		System.out.println("GameRenderer - render"); 
 		
-		Cat cat = mMyWorld.getCat(); 
 		
 		// draw a black background. prevents flickerinng
 		Gdx.gl.glClearColor(0, 0, 0, 1); 
@@ -100,8 +128,8 @@ public class GameRenderer {
 		// draw cat at its coordinates. Retrieve the Animation object
 		// from Asset loader
 		// pass in the runTime variable to get the current frame
-		mBatcher.draw(AssetLoader.mCatAnimation.getKeyFrame(runTime), cat.getX(),cat.getY(), 
-				cat.getWidth(),cat.getHeight()); 
+		mBatcher.draw(mCatAnimation.getKeyFrame(runTime), mCat.getX(),mCat.getY(), 
+				mCat.getWidth(),mCat.getHeight()); 
 		
 		// end sprite
 		mBatcher.end(); 
